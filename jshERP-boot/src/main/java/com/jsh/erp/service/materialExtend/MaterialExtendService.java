@@ -105,7 +105,7 @@ public class MaterialExtendService {
                 }
             }
         }
-        if (null != deletedJson) {
+        if (null != deletedJson && !deletedJson.isEmpty()) {
             StringBuffer bf=new StringBuffer();
             for (int i = 0; i < deletedJson.size(); i++) {
                 bf.append(deletedJson.getString(i));
