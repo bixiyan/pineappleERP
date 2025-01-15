@@ -35,7 +35,7 @@
       })
       //翻译自定义
       translate.nomenclature.append('chinese_simplified','english',`
-					管伊佳ERP=GuanYiJia
+					ERP=PINEAPPLE
 			`)
     }
   }
