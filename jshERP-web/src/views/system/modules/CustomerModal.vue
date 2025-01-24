@@ -69,8 +69,8 @@
               <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="客户来源分类">
                 <a-select placeholder="请选择客户来源分类" v-decorator.trim="[ 'taxNum' ]" >
                   <a-select-option value="0">欧德系统转介</a-select-option>
-                  <a-select-option value="2">总监分发</a-select-option>
-                  <a-select-option value="1">网络</a-select-option>
+                  <a-select-option value="1">总监分发</a-select-option>
+                  <a-select-option value="2">网络</a-select-option>
                   <a-select-option value="3">门市客</a-select-option>
                 </a-select>
               </a-form-item>

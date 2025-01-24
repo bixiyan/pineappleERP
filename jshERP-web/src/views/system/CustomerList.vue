@@ -14,21 +14,45 @@
                 </a-form-item>
               </a-col>
               <a-col :md="6" :sm="24">
-                <a-form-item label="手机号码" :labelCol="labelCol" :wrapperCol="wrapperCol">
-                  <a-input placeholder="请输入手机号码查询" v-model="queryParam.telephone"></a-input>
+                <a-form-item label="客户来源" :labelCol="labelCol" :wrapperCol="wrapperCol">
+                  <a-select placeholder="请选择客户来源分类" v-model="queryParam.taxnum" >
+                    <a-select-option value="0">欧德系统转介</a-select-option>
+                    <a-select-option value="1">总监分发</a-select-option>
+                    <a-select-option value="2">网络</a-select-option>
+                    <a-select-option value="3">门市客</a-select-option>
+                  </a-select>
                 </a-form-item>
               </a-col>
               <a-col :md="6" :sm="24">
-                <a-form-item label="联系电话" :labelCol="labelCol" :wrapperCol="wrapperCol">
-                  <a-input placeholder="请输入联系电话查询" v-model="queryParam.phonenum"></a-input>
+                <a-form-item label="是否签约" :labelCol="labelCol" :wrapperCol="wrapperCol">
+                  <a-select placeholder="请选择是否签约" v-model="queryParam.taxnum" >
+                    <a-select-option value="0">是</a-select-option>
+                    <a-select-option value="1">否</a-select-option>
+                  </a-select>
                 </a-form-item>
               </a-col>
               <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
                 <a-col :md="6" :sm="24">
                   <a-button type="primary" @click="searchQuery">查询</a-button>
                   <a-button style="margin-left: 8px" @click="searchReset">重置</a-button>
+                  <a @click="handleToggleSearch" style="margin-left: 8px">
+                    {{ toggleSearchStatus ? '收起' : '展开' }}
+                    <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
+                  </a>
                 </a-col>
               </span>
+              <template v-if="toggleSearchStatus">
+                <a-col :md="6" :sm="24">
+                  <a-form-item label="手机号码" :labelCol="labelCol" :wrapperCol="wrapperCol">
+                    <a-input placeholder="请输入手机号码查询" v-model="queryParam.telephone"></a-input>
+                  </a-form-item>
+                </a-col>
+                <a-col :md="6" :sm="24">
+                  <a-form-item label="联系电话" :labelCol="labelCol" :wrapperCol="wrapperCol">
+                    <a-input placeholder="请输入联系电话查询" v-model="queryParam.phonenum"></a-input>
+                  </a-form-item>
+                </a-col>
+              </template>
             </a-row>
           </a-form>
         </div>
@@ -105,6 +129,8 @@
         queryParam: {
           supplier:'',
           type:'客户',
+          taxnum:'',
+          signornot:'',
           telephone:'',
           phonenum:''
         },
@@ -135,6 +161,7 @@
           { title: '手机号码', dataIndex: 'telephone',width:100,align:"left"},
           { title: '联系电话', dataIndex: 'phoneNum',width:100,align:"left"},
           { title: '电子邮箱', dataIndex: 'email',width:150,align:"left"},
+          { title: '客户来源', dataIndex: 'taxNum',width:150,align:"left"},
           { title: '期初应收',dataIndex: 'beginNeedGet',width:80,align:"left"},
           { title: '期末应收',dataIndex: 'allNeedGet',width:80,align:"left"},
           { title: '税率(%)', dataIndex: 'taxRate',width:80,align:"left"},
