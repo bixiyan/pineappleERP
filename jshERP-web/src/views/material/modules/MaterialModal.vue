@@ -628,6 +628,7 @@
           id: this.model.id?this.model.id:0,
           name: this.model.name,
           model: this.parseParam(this.model.model),
+          category: this.model.categoryId,
           color: this.parseParam(this.model.color),
           standard: this.parseParam(this.model.standard),
           mfrs: this.parseParam(this.model.mfrs),

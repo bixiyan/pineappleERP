@@ -164,6 +164,7 @@ public interface MaterialMapperEx {
 
     int checkIsExist(
             @Param("id") Long id,
+            @Param("categoryId") Long categoryId,
             @Param("name") String name,
             @Param("model") String model,
             @Param("color") String color,

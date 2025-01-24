@@ -816,6 +816,9 @@
         <if test="name != null">
             and m.name = #{name}
         </if>
+        <if test="categoryId != null">
+            and m.category_id = #{categoryId}
+        </if>
         <if test="model != null">
             and m.model = #{model}
         </if>

@@ -336,9 +336,9 @@ public class MaterialService {
         return list==null?0:list.size();
     }
 
-    public int checkIsExist(Long id, String name, String model, String color, String standard, String mfrs,
+    public int checkIsExist(Long id,Long categoryId, String name, String model, String color, String standard, String mfrs,
                             String otherField1, String otherField2, String otherField3, String unit, Long unitId)throws Exception {
-        return materialMapperEx.checkIsExist(id, name, model, color, standard, mfrs, otherField1,
+        return materialMapperEx.checkIsExist(id,categoryId, name, model, color, standard, mfrs, otherField1,
                 otherField2, otherField3, unit, unitId);
     }
 

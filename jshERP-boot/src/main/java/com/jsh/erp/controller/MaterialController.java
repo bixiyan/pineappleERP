@@ -87,14 +87,14 @@ public class MaterialController {
      */
     @GetMapping(value = "/checkIsExist")
     @ApiOperation(value = "检查商品是否存在")
-    public String checkIsExist(@RequestParam("id") Long id, @RequestParam("name") String name,
+    public String checkIsExist(@RequestParam("id") Long id,@RequestParam("category") Long categoryId, @RequestParam("name") String name,
                                @RequestParam("model") String model, @RequestParam("color") String color,
                                @RequestParam("standard") String standard, @RequestParam("mfrs") String mfrs,
                                @RequestParam("otherField1") String otherField1, @RequestParam("otherField2") String otherField2,
                                @RequestParam("otherField3") String otherField3, @RequestParam("unit") String unit,@RequestParam("unitId") Long unitId,
                                HttpServletRequest request)throws Exception {
         Map<String, Object> objectMap = new HashMap<String, Object>();
-        int exist = materialService.checkIsExist(id, name, StringUtil.toNull(model), StringUtil.toNull(color),
+        int exist = materialService.checkIsExist(id, categoryId, name, StringUtil.toNull(model), StringUtil.toNull(color),
                 StringUtil.toNull(standard), StringUtil.toNull(mfrs), StringUtil.toNull(otherField1),
                 StringUtil.toNull(otherField2), StringUtil.toNull(otherField3), StringUtil.toNull(unit), unitId);
         if(exist > 0) {
