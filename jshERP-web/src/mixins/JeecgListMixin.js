@@ -504,7 +504,7 @@ export const JeecgListMixin = {
     },
     /** 表格增加合计行 */
     tableAddTotalRow(columns, dataSource) {
-      if(dataSource.length>0 && this.ipagination.pageSize%10===1) {
+      if(dataSource.length>0) {
         //分页条数为11、21、31等的时候增加合计行
         let numKey = 'rowIndex'
         let totalRow = { [numKey]: '合计' }
@@ -512,13 +512,15 @@ export const JeecgListMixin = {
         let parseCols = 'initialStock,currentStock,currentStockPrice,currentWeight,initialAmount,thisMonthAmount,currentAmount,inSum,inSumPrice,' +
           'inOutSumPrice,outSum,outSumPrice,outInSumPrice,operNumber,allPrice,numSum,priceSum,prevSum,thisSum,thisAllPrice,changeAmount,' +
           'allPrice,taxMoney,currentNumber,lowCritical,highCritical,preNeed,debtMoney,backMoney,allNeed,' +
-          'needDebt,realNeedDebt,finishDebt,debt,'
+          'needDebt,realNeedDebt,finishDebt,debt,totalPrice,totalTaxLastMoney,'
         columns.forEach(column => {
           let { key, dataIndex } = column
           if (![key, dataIndex].includes(numKey)) {
             let total = 0
             dataSource.forEach(data => {
+              console.log(dataIndex)
               if(parseCols.indexOf(dataIndex+',')>-1) {
+                console.log(data[dataIndex])
                 if(data[dataIndex]) {
                   total += Number.parseFloat(data[dataIndex])
                 } else {
@@ -536,8 +538,9 @@ export const JeecgListMixin = {
         })
         dataSource.push(totalRow)
         //总数要增加合计的行数，每页都有一行合计，所以总数要加上
-        let size = Math.ceil(this.ipagination.total/(this.ipagination.pageSize-1))
-        this.ipagination.total = this.ipagination.total + size
+        //let size = Math.ceil(this.ipagination.total/(this.ipagination.pageSize-1))
+        //bixy 认为合计行只算一行加在总数上
+        this.ipagination.total = this.ipagination.total + 1
       }
     },
     paginationChange(page, pageSize) {
