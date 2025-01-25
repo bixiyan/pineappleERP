@@ -270,10 +270,11 @@
     </select>
 
     <select id="findMaterialsListMapByHeaderIdList" resultType="com.jsh.erp.datasource.vo.MaterialsListVo">
-        select jsh_depot_item.header_id, group_concat(concat(jsh_material.name,' ',ifnull(jsh_material.standard,''),' ',
+        select jsh_depot_item.header_id, group_concat(concat(jsh_material.name,' ',ifnull(jsh_material_category.name,''),' ',
             ifnull(jsh_material.model,''),' ',ifnull(jsh_material.color,''))) as materialsList
         from jsh_depot_item
         left join jsh_material on jsh_depot_item.material_id = jsh_material.Id and ifnull(jsh_material.delete_Flag,'0') !='1'
+        left join jsh_material_category on jsh_material_category.id = jsh_material.category_id
         where 1=1
         <if test="idList.size()>0">
             and jsh_depot_item.header_id in
