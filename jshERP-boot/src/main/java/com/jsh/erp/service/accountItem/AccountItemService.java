@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.jsh.erp.constants.BusinessConstants;
 import com.jsh.erp.constants.ExceptionConstants;
+import com.jsh.erp.datasource.entities.AccountHead;
 import com.jsh.erp.datasource.entities.AccountItem;
 import com.jsh.erp.datasource.entities.AccountItemExample;
 import com.jsh.erp.datasource.entities.DepotHead;
@@ -13,6 +14,7 @@ import com.jsh.erp.datasource.mappers.AccountItemMapperEx;
 import com.jsh.erp.datasource.vo.AccountItemVo4List;
 import com.jsh.erp.exception.BusinessRunTimeException;
 import com.jsh.erp.exception.JshException;
+import com.jsh.erp.service.accountHead.AccountHeadService;
 import com.jsh.erp.service.depotHead.DepotHeadService;
 import com.jsh.erp.service.log.LogService;
 import com.jsh.erp.service.user.UserService;
@@ -45,6 +47,9 @@ public class AccountItemService {
     private UserService userService;
     @Resource
     private DepotHeadService depotHeadService;
+
+    @Resource
+    private AccountHeadService accountHeadService;
 
     public AccountItem getAccountItem(long id)throws Exception {
         AccountItem result=null;
@@ -191,6 +196,7 @@ public class AccountItemService {
     public void saveDetials(String rows, Long headerId, String type, HttpServletRequest request) throws Exception {
         //删除单据的明细
         deleteAccountItemHeadId(headerId);
+        AccountHead accountHead = accountHeadService.getAccountHead(headerId);
         JSONArray rowArr = JSONArray.parseArray(rows);
         if (null != rowArr && rowArr.size()>0) {
             for (int i = 0; i < rowArr.size(); i++) {
@@ -206,6 +212,11 @@ public class AccountItemService {
                 if (tempInsertedJson.get("billNumber") != null && !tempInsertedJson.get("billNumber").equals("")) {
                     String billNo = tempInsertedJson.getString("billNumber");
                     accountItem.setBillId(depotHeadService.getDepotHead(billNo).getId());
+                }
+                else{
+                    DepotHead depotHead = depotHeadService.getDepotHeadByOrganId(accountHead.getOrganId());
+                    if(depotHead!=null)
+                        accountItem.setBillId(depotHead.getId());
                 }
                 if (tempInsertedJson.get("needDebt") != null && !tempInsertedJson.get("needDebt").equals("")) {
                     accountItem.setNeedDebt(tempInsertedJson.getBigDecimal("needDebt"));

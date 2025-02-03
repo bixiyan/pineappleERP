@@ -20,6 +20,8 @@ public interface DepotHeadMapper {
 
     DepotHead selectByPrimaryKey(Long id);
 
+    List<DepotHead> selectByOrganId(Long id);
+
     int updateByExampleSelective(@Param("record") DepotHead record, @Param("example") DepotHeadExample example);
 
     int updateByExample(@Param("record") DepotHead record, @Param("example") DepotHeadExample example);

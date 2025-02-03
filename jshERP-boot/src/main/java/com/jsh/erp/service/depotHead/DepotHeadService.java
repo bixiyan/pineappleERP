@@ -101,6 +101,18 @@ public class DepotHeadService {
         return result;
     }
 
+    public DepotHead getDepotHeadByOrganId(long id)throws Exception {
+        List<DepotHead> result=null;
+        try{
+            result=depotHeadMapper.selectByOrganId(id);
+        }catch(Exception e){
+            JshException.readFail(logger, e);
+        }
+        if(result!= null && !result.isEmpty())
+            return result.get(0);
+        return null;
+    }
+
     public List<DepotHead> getDepotHead()throws Exception {
         DepotHeadExample example = new DepotHeadExample();
         example.createCriteria().andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);

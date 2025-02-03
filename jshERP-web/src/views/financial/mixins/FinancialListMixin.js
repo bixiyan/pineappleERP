@@ -1,5 +1,5 @@
 import {findFinancialDetailByNumber, findBySelectSup, findBySelectCus, findBySelectOrgan, findBySelectRetail,
-  getUserList, getPersonByType, getAccount, getCurrentSystemConfig, getPlatformConfigByKey} from '@/api/api'
+  getUserList,getMaterialNames, getPersonByType, getAccount, getCurrentSystemConfig, getPlatformConfigByKey} from '@/api/api'
 import { getCheckFlag, getFormatDate, getPrevMonthFormatDate } from '@/utils/util'
 import Vue from 'vue'
 import moment from 'moment'
@@ -148,6 +148,13 @@ export const FinancialListMixin = {
       getUserList({}).then((res)=>{
         if(res) {
           this.userList = res;
+        }
+      });
+    },
+    initDesigner() {
+      getMaterialNames({}).then((res)=>{
+        if(res) {
+          this.designerList = res;
         }
       });
     },
