@@ -84,6 +84,16 @@ public class MaterialService {
     @Value(value="${file.uploadType}")
     private Long fileUploadType;
 
+    public List<String> getMaterialNames()throws Exception {
+        List<String> result=null;
+        try{
+            result=materialMapperEx.getMaterialNames();
+        }catch(Exception e){
+            JshException.readFail(logger, e);
+        }
+        return result;
+    }
+
     public Material getMaterial(long id)throws Exception {
         Material result=null;
         try{

@@ -209,7 +209,8 @@ export {
   batchAddDepotHeadAndDetail,
   findStockByDepotAndBarCode,
   getBatchNumberList,
-  findFinancialDetailByNumber
+  findFinancialDetailByNumber,
+  getMaterialNames
 }
 
 

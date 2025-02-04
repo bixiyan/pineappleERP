@@ -861,4 +861,10 @@
         and ifnull(m.delete_flag,'0') !='1'
         limit 0,1
     </select>
+
+    <select id="getMaterialNames" resultType="java.lang.String">
+        select distinct name
+        from jsh_material m
+        where ifnull(m.delete_flag,'0') !='1'
+    </select>
 </mapper>

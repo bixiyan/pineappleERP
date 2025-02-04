@@ -47,9 +47,9 @@
               <template v-if="toggleSearchStatus">
                 <a-col :md="6" :sm="24">
                   <a-form-item label="设计师" :labelCol="labelCol" :wrapperCol="wrapperCol">
-                    <a-select placeholder="请选择设计师" showSearch optionFilterProp="children" v-model="queryParam.creator">
-                      <a-select-option v-for="(item,index) in designerList" :key="index" :value="item.id">
-                        {{ item.name }}
+                    <a-select placeholder="请选择设计师" showSearch optionFilterProp="children" v-model="queryParam.designer">
+                      <a-select-option v-for="(item,index) in designerList" :key="index" :value="item">
+                        {{ item }}
                       </a-select-option>
                     </a-select>
                   </a-form-item>
@@ -226,6 +226,7 @@
       this.initUser()
       this.initPerson()
       this.initAccount()
+      this.initDesigner()
     },
     methods: {
     }

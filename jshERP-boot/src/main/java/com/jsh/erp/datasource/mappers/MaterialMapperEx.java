@@ -178,4 +178,6 @@ public interface MaterialMapperEx {
 
     MaterialExtend getMaterialExtendBySerialNumber(
             @Param("serialNumber") String serialNumber);
+
+    List<String> getMaterialNames();
 }

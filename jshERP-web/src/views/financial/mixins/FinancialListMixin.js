@@ -153,8 +153,8 @@ export const FinancialListMixin = {
     },
     initDesigner() {
       getMaterialNames({}).then((res)=>{
-        if(res) {
-          this.designerList = res;
+        if(res && res.code === 200) {
+          this.designerList = res.data;
         }
       });
     },

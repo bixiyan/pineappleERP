@@ -734,4 +734,22 @@ public class MaterialController {
         }
         return res;
     }
+
+    /**
+     * 获取商品名称列表
+     */
+    @GetMapping(value = "/getMaterialNames")
+    @ApiOperation(value = "获取商品名称列表")
+    public BaseResponseInfo getMaterialNames()throws Exception {
+        BaseResponseInfo res = new BaseResponseInfo();
+        try {
+            res.code = 200;
+            res.data = materialService.getMaterialNames();
+        } catch(Exception e){
+            logger.error(e.getMessage(), e);
+            res.code = 500;
+            res.data = "获取数据失败";
+        }
+        return res;
+    }
 }
