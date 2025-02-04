@@ -19,6 +19,7 @@ public interface AccountHeadMapperEx {
             @Param("beginTime") String beginTime,
             @Param("endTime") String endTime,
             @Param("organId") Long organId,
+            @Param("designer") String designer,
             @Param("creator") Long creator,
             @Param("handsPersonId") Long handsPersonId,
             @Param("accountId") Long accountId,

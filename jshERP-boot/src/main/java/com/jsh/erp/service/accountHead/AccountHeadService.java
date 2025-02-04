@@ -94,7 +94,7 @@ public class AccountHeadService {
         return list;
     }
 
-    public List<AccountHeadVo4ListEx> select(String type, String billNo, String beginTime, String endTime,
+    public List<AccountHeadVo4ListEx> select(String type, String billNo, String beginTime, String endTime, String designer,
                                              Long organId, Long creator, Long handsPersonId, Long accountId, String status,
                                              String remark, String number, int offset, int rows) throws Exception{
         List<AccountHeadVo4ListEx> resList = new ArrayList<>();
@@ -103,7 +103,7 @@ public class AccountHeadService {
             beginTime = Tools.parseDayToTime(beginTime,BusinessConstants.DAY_FIRST_TIME);
             endTime = Tools.parseDayToTime(endTime,BusinessConstants.DAY_LAST_TIME);
             List<AccountHeadVo4ListEx> list = accountHeadMapperEx.selectByConditionAccountHead(type, creatorArray, billNo,
-                    beginTime, endTime, organId, creator, handsPersonId, accountId, status, remark, number, offset, rows);
+                    beginTime, endTime, organId, designer, creator, handsPersonId, accountId, status, remark, number, offset, rows);
             if (null != list) {
                 for (AccountHeadVo4ListEx ah : list) {
                     if(ah.getChangeAmount() != null) {

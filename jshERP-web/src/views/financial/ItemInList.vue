@@ -201,6 +201,7 @@
           { title: '往来单位', dataIndex: 'organName',width:140, ellipsis:true},
           { title: '单据编号', dataIndex: 'billNo',width:160},
           { title: '单据日期 ', dataIndex: 'billTimeStr',width:160},
+          { title: '设计师 ', dataIndex: 'designer',width:100},
           { title: '操作员', dataIndex: 'userName',width:100, ellipsis:true},
           { title: '财务人员', dataIndex: 'handsPersonName',width:100},
           { title: '收入账户', dataIndex: 'accountName',width:100, ellipsis:true},

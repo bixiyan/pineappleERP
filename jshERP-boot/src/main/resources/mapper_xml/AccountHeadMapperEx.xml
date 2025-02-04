@@ -10,10 +10,12 @@
     </resultMap>
 
     <select id="selectByConditionAccountHead" parameterType="com.jsh.erp.datasource.entities.AccountHeadExample" resultMap="ResultMapEx">
-        select distinct ah.*, s.supplier OrganName, p.Name HandsPersonName, u.username userName, a.Name AccountName
+        select distinct ah.*, s.supplier OrganName, p.Name HandsPersonName, u.username userName, a.Name AccountName, m.Name designer
         from jsh_account_head ah
         left join jsh_account_item ai on ah.id=ai.header_id and ifnull(ai.delete_flag,'0') !='1'
         left join jsh_depot_head dh on dh.id=ai.bill_id and ifnull(dh.delete_flag,'0') !='1'
+        left join jsh_depot_item di on dh.id = di.header_id and ifnull(di.delete_flag,'0') !='1'
+        left join jsh_material m on di.material_id = m.id and ifnull(m.delete_flag,'0') !='1'
         left join jsh_supplier s on ah.organ_id=s.id and ifnull(s.delete_Flag,'0') !='1'
         left join jsh_user u on ah.creator=u.id and ifnull(u.delete_flag,'0') !='1'
         left join jsh_person p on ah.hands_person_id=p.id and ifnull(p.delete_Flag,'0') !='1'
@@ -34,6 +36,9 @@
         </if>
         <if test="organId != null">
             and ah.organ_id=#{organId}
+        </if>
+        <if test="designer != null">
+            and m.name=#{designer}
         </if>
         <if test="handsPersonId != null">
             and ah.hands_person_id=#{handsPersonId}

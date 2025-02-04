@@ -11,6 +11,8 @@ public class AccountHeadVo4ListEx extends AccountHead{
 
     private String userName;
 
+    private String designer;
+
     private String accountName;
 
     private String billTimeStr;
@@ -53,5 +55,13 @@ public class AccountHeadVo4ListEx extends AccountHead{
 
     public void setBillTimeStr(String billTimeStr) {
         this.billTimeStr = billTimeStr;
+    }
+
+    public String getDesigner() {
+        return designer;
+    }
+
+    public void setDesigner(final String designer) {
+        this.designer = designer;
     }
 }
