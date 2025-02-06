@@ -38,6 +38,13 @@ public interface DepotHeadMapperEx {
             @Param("offset") Integer offset,
             @Param("rows") Integer rows);
 
+    List<OrderReportVo> orderReport(
+        @Param("status") String status,
+        @Param("beginTime") String beginTime,
+        @Param("endTime") String endTime,
+        @Param("designer") String designer,
+        @Param("organId") Long organId);
+
     Long countsByDepotHead(
             @Param("type") String type,
             @Param("subType") String subType,
