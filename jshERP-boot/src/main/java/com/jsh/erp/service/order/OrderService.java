@@ -48,7 +48,7 @@ public class OrderService {
             }
         }
         for (OrderReportVo2 value : calMap.values()){
-            if(value.executionStatus().equals(status)){
+            if(status == null || value.executionStatus().equals(status)){
                 result.add(value);
             }
         }
