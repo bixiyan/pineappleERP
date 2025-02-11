@@ -158,7 +158,7 @@
         tabKey: "1",
         pageName: 'OrderStatusReport',
         // 默认索引
-        defDataIndex:['rowIndex','organName','materialName','paied','unpaied','status'],
+        defDataIndex:['rowIndex','organName','designer','paied','unpaied','status'],
         // 默认列
         defColumns: [
           {
@@ -168,9 +168,9 @@
             }
           },
           { title: '客户', dataIndex: 'organName', width: 150},
-          { title: '设计师', dataIndex: 'materialName', width: 150},
+          { title: '设计师', dataIndex: 'designer', width: 150},
           { title: '已收款项', dataIndex: 'paied', width: 100},
-          { title: '未收款项', dataIndex: 'unpaied', width: 100},
+          { title: '未收款项', dataIndex: 'unPaied', width: 100},
           { title: '施工状态', dataIndex: 'status', width: 100}
         ],
         url: {
