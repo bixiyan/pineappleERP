@@ -1,5 +1,7 @@
 package com.jsh.erp.utils;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import org.springframework.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -58,6 +60,13 @@ public class StringUtil {
         }
         SimpleDateFormat df = new SimpleDateFormat(format);
         return df.format(new Date());
+    }
+
+    public static String getSysDatePast7Days() {
+        SimpleDateFormat df = new SimpleDateFormat(DEFAULT_FORMAT);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, 7);
+        return df.format(calendar.getTime());
     }
 
     public static Date getDateByString(String date, String format) {

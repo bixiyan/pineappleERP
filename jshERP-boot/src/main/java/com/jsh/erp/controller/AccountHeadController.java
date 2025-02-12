@@ -6,6 +6,7 @@ import com.jsh.erp.constants.ExceptionConstants;
 import com.jsh.erp.datasource.entities.AccountHead;
 import com.jsh.erp.datasource.entities.AccountHeadVo4Body;
 import com.jsh.erp.datasource.entities.AccountHeadVo4ListEx;
+import com.jsh.erp.datasource.vo.AccountHeadUnPaiedVo;
 import com.jsh.erp.service.accountHead.AccountHeadService;
 import com.jsh.erp.utils.BaseResponseInfo;
 import com.jsh.erp.utils.ErpInfo;
@@ -34,6 +35,22 @@ public class AccountHeadController {
 
     @Resource
     private AccountHeadService accountHeadService;
+
+    @GetMapping(value = "/getUnPaied")
+    @ApiOperation(value = "获取未审核的待收款")
+    public BaseResponseInfo getUnPaied(HttpServletRequest request) throws Exception{
+        BaseResponseInfo result = new BaseResponseInfo();
+        try {
+            List<AccountHeadUnPaiedVo> res = accountHeadService.getUnPaied();
+            result.data = res;
+            result.code = 200;
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            result.code = 500;
+            result.data = "获取数据失败";
+        }
+        return result;
+    }
 
     /**
      * 批量设置状态-审核或者反审核

@@ -9,6 +9,22 @@
         <result column="AccountName" jdbcType="VARCHAR" property="accountName" />
     </resultMap>
 
+    <resultMap extends="com.jsh.erp.datasource.mappers.AccountHeadMapper.BaseResultMap" id="ResultMapUnpaied" type="com.jsh.erp.datasource.vo.AccountHeadUnPaiedVo">
+        <result column="OrganName" jdbcType="VARCHAR" property="organ" />
+        <result column="Total" jdbcType="DECIMAL" property="total" />
+    </resultMap>
+
+    <select id="getUnPaied" parameterType="com.jsh.erp.datasource.entities.AccountHeadExample" resultMap="ResultMapUnpaied">
+        select s.supplier OrganName, ah.total_price Total
+        from jsh_account_head ah
+        left join jsh_supplier s on ah.organ_id=s.id and ifnull(s.delete_Flag,'0') !='1'
+        where 1=1 and ah.status = 0
+        <if test="bill_time != null">
+            and ah.bill_time &lt;= #{bill_time}
+        </if>
+        and ifnull(ah.delete_flag,'0') !='1'
+    </select>
+
     <select id="selectByConditionAccountHead" parameterType="com.jsh.erp.datasource.entities.AccountHeadExample" resultMap="ResultMapEx">
         select distinct ah.*, s.supplier OrganName, p.Name HandsPersonName, u.username userName, a.Name AccountName, m.Name designer
         from jsh_account_head ah

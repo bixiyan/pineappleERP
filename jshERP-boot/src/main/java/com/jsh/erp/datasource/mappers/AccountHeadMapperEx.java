@@ -4,6 +4,7 @@ import com.jsh.erp.datasource.entities.AccountHead;
 import com.jsh.erp.datasource.entities.AccountHeadExample;
 import com.jsh.erp.datasource.entities.AccountHeadVo4ListEx;
 import com.jsh.erp.datasource.entities.AccountItem;
+import com.jsh.erp.datasource.vo.AccountHeadUnPaiedVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
@@ -11,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 public interface AccountHeadMapperEx {
+
+    List<AccountHeadUnPaiedVo> getUnPaied(@Param("bill_time") String time);
 
     List<AccountHeadVo4ListEx> selectByConditionAccountHead(
             @Param("type") String type,

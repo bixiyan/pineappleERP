@@ -9,6 +9,7 @@ import com.jsh.erp.datasource.mappers.AccountHeadMapper;
 import com.jsh.erp.datasource.mappers.AccountHeadMapperEx;
 import com.jsh.erp.datasource.mappers.AccountItemMapperEx;
 import com.jsh.erp.datasource.mappers.AccountMapper;
+import com.jsh.erp.datasource.vo.AccountHeadUnPaiedVo;
 import com.jsh.erp.exception.BusinessRunTimeException;
 import com.jsh.erp.exception.JshException;
 import com.jsh.erp.service.accountItem.AccountItemService;
@@ -59,6 +60,11 @@ public class AccountHeadService {
     private AccountItemMapperEx accountItemMapperEx;
     @Resource
     private AccountMapper accountMapper;
+
+    public List<AccountHeadUnPaiedVo> getUnPaied() {
+        String last7Days = StringUtil.getSysDatePast7Days();
+        return accountHeadMapperEx.getUnPaied(last7Days);
+    }
 
     public AccountHead getAccountHead(long id) throws Exception {
         AccountHead result=null;

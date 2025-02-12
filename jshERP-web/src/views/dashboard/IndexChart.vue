@@ -1,146 +1,24 @@
 <template>
   <div class="page-header-index-wide">
     <a-row :gutter="24">
-      <a-col :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="今日销售" data-step="1" data-title="今日销售" data-intro="统计今日销售单据的总金额">
-          <a-tooltip title="统计今日销售单据的总金额" slot="action">
-            <a-icon type="info-circle-o" />
-          </a-tooltip>
-          <head-info :content="statistics.todaySale"></head-info>
-        </chart-card>
-      </a-col>
-      <a-col :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="今日零售" data-step="2" data-title="今日零售" data-intro="统计今日零售单据的总金额">
-          <a-tooltip title="统计今日零售单据的总金额" slot="action">
-            <a-icon type="info-circle-o" />
-          </a-tooltip>
-          <head-info :content="statistics.todayRetailSale"></head-info>
-        </chart-card>
-      </a-col>
-      <a-col :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="今日采购" data-step="3" data-title="今日采购" data-intro="统计今日采购单据的总金额">
-          <a-tooltip title="统计今日采购单据的总金额" slot="action">
-            <a-icon type="info-circle-o" />
-          </a-tooltip>
-          <head-info :content="statistics.todayBuy"></head-info>
-        </chart-card>
-      </a-col>
-      <a-col :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="本月累计销售">
-          <a-tooltip title="统计本月销售单据的总金额" slot="action">
-            <a-icon type="info-circle-o" />
-          </a-tooltip>
-          <head-info :content="statistics.monthSale"></head-info>
-        </chart-card>
-      </a-col>
-      <a-col :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="本月累计零售">
-          <a-tooltip title="统计本月零售单据的总金额" slot="action">
-            <a-icon type="info-circle-o" />
-          </a-tooltip>
-          <head-info :content="statistics.monthRetailSale"></head-info>
-        </chart-card>
-      </a-col>
-      <a-col :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="本月累计采购">
-          <a-tooltip placement="left" title="统计本月采购单据的总金额" slot="action">
-            <a-icon type="info-circle-o" />
-          </a-tooltip>
-          <head-info :content="statistics.monthBuy"></head-info>
-        </chart-card>
-      </a-col>
-      <a-col :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="昨日销售">
-          <a-tooltip title="统计昨日销售单据的总金额" slot="action">
-            <a-icon type="info-circle-o" />
-          </a-tooltip>
-          <head-info :content="statistics.yesterdaySale"></head-info>
-        </chart-card>
-      </a-col>
-      <a-col :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="昨日零售">
-          <a-tooltip title="统计昨日零售单据的总金额" slot="action">
-            <a-icon type="info-circle-o" />
-          </a-tooltip>
-          <head-info :content="statistics.yesterdayRetailSale"></head-info>
-        </chart-card>
-      </a-col>
-      <a-col :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="昨日采购">
-          <a-tooltip title="统计昨日采购单据的总金额" slot="action">
-            <a-icon type="info-circle-o" />
-          </a-tooltip>
-          <head-info :content="statistics.yesterdayBuy"></head-info>
-        </chart-card>
-      </a-col>
-      <a-col :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="今年累计销售">
-          <a-tooltip title="统计今年销售单据的总金额" slot="action">
-            <a-icon type="info-circle-o" />
-          </a-tooltip>
-          <head-info :content="statistics.yearSale"></head-info>
-        </chart-card>
-      </a-col>
-      <a-col :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="今年累计零售">
-          <a-tooltip title="统计今年零售单据的总金额" slot="action">
-            <a-icon type="info-circle-o" />
-          </a-tooltip>
-          <head-info :content="statistics.yearRetailSale"></head-info>
-        </chart-card>
-      </a-col>
-      <a-col :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="今年累计采购">
-          <a-tooltip placement="left" title="统计今年采购单据的总金额" slot="action">
-            <a-icon type="info-circle-o" />
-          </a-tooltip>
-          <head-info :content="statistics.yearBuy"></head-info>
+      <a-col v-for="item of unPaied" :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
+        <chart-card :loading="loading" title="待收款" :company="item.organ" data-step="1" data-title="test">
+          <head-info :content="item.total"></head-info>
         </chart-card>
       </a-col>
     </a-row>
     <a-row :gutter="24">
-      <a-col :sm="24" :md="12" :xl="8" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <a-card :loading="loading" :bordered="false" :body-style="{paddingRight: '5'}" data-step="4" data-title="销售统计"
-                data-intro="统计往前6个月每月销售的总金额">
-          <bar title="销售统计" :height="barHeight" :yaxisText="yaxisText" :dataSource="salePriceData"/>
-        </a-card>
-      </a-col>
-      <a-col :sm="24" :md="12" :xl="8" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <a-card :loading="loading" :bordered="false" :body-style="{paddingRight: '5'}" data-step="5" data-title="零售统计"
-                data-intro="统计往前6个月每月零售的总金额">
-          <bar title="零售统计" :height="barHeight" :yaxisText="yaxisText" :dataSource="retailPriceData"/>
-        </a-card>
-      </a-col>
-      <a-col :sm="24" :md="12" :xl="8" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <a-card :loading="loading" :bordered="false" :body-style="{paddingRight: '5'}" data-step="6" data-title="采购统计"
-                data-intro="统计往前6个月每月采购的总金额">
-          <bar title="采购统计" :height="barHeight" :yaxisText="yaxisText" :dataSource="buyPriceData"/>
-        </a-card>
+      <a-col v-for="item of inExecution" :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
+        <chart-card :loading="loading" title="施工中" :company="item.designer" data-step="1" data-title="test">
+          <head-info :content="item.organ"></head-info>
+        </chart-card>
       </a-col>
     </a-row>
     <a-row :gutter="24">
-      <a-col :sm="24" :md="24" :xl="24" :style="{ paddingRight: '0px',marginBottom: '6px' }">
-        <a-card :bordered="false" :body-style="{padding: '5'}" data-step="7" data-title="服务和版权"
-                data-intro="展示服务到期时间（快到期时会出现续费链接，请注意及时续费）、
-          用户数量（是指最多可以录入的用户数量）、版权信息">
-          <div class="hidden-xs" style="float:right;">
-            <a-popover
-              trigger="hover"
-              :visible="hovered"
-              @visibleChange="handleHoverChange">
-              <div slot="content">
-                <img src="/static/weixin.jpg" style="width:258px" />
-              </div>
-              <a-button type="link" v-if="showWeixinSpan()">管伊佳ERP微信小程序</a-button>
-            </a-popover>
-            &copy; 2015-2030 {{systemTitle}} V3.5
-          </div>
-          <a-tag v-if="tenant.type==0" color="blue">试用到期：{{tenant.expireTime}}</a-tag>
-          <a-tag v-if="tenant.type==0" color="blue">试用用户：{{tenant.userCurrentNum}}/{{tenant.userNumLimit}}</a-tag>
-          <a-tag v-if="tenant.type==1" color="blue">服务到期：{{tenant.expireTime}}</a-tag>
-          <a-tag v-if="tenant.type==1" color="blue">授权用户：{{tenant.userCurrentNum}}/{{tenant.userNumLimit}}</a-tag>
-          <a v-if="hasExpire" style="color: red;" :href="payFeeUrl" target="_blank">立即续费</a>
-        </a-card>
+      <a-col v-for="item of unExecution" :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
+        <chart-card :loading="loading" title="未施工" :company="item.designer" data-step="1" data-title="test">
+          <head-info :content="item.organ"></head-info>
+        </chart-card>
       </a-col>
     </a-row>
   </div>
@@ -156,7 +34,7 @@
   import LineChartMultid from '@/components/chart/LineChartMultid'
   import HeadInfo from '@/components/tools/HeadInfo.vue'
   import Trend from '@/components/Trend'
-  import { getBuyAndSaleStatistics, buyOrSalePrice, getPlatformConfigByKey } from '@/api/api'
+  import { getUnPaied, getExecution } from '@/api/api'
   import { handleIntroJs } from "@/utils/util"
   import { getAction,postAction } from '../../api/manage'
 
@@ -181,7 +59,9 @@
         systemUrl: window.SYS_URL,
         loading: true,
         center: null,
-        statistics: {},
+        unPaied: {},
+        inExecution: {},
+        unExecution: {},
         barHeight: document.documentElement.clientHeight-585,
         yaxisText: '金额',
         buyPriceData: [],
@@ -212,21 +92,15 @@
     },
     methods: {
       initInfo () {
-        getBuyAndSaleStatistics().then((res)=>{
+        getExecution().then((res)=>{
           if(res.code === 200){
-            this.statistics = res.data;
+            this.inExecution = res.data.inExecution;
+            this.unExecution = res.data.unExecution;
           }
         })
-        buyOrSalePrice().then(res=>{
+        getUnPaied().then(res=>{
           if(res.code === 200){
-            this.buyPriceData = res.data.buyPriceList
-            this.salePriceData = res.data.salePriceList
-            this.retailPriceData = res.data.retailPriceList
-          }
-        })
-        getPlatformConfigByKey({"platformKey": "pay_fee_url"}).then((res)=> {
-          if (res && res.code === 200) {
-            this.payFeeUrl = res.data.platformValue
+            this.unPaied = res.data
           }
         })
       },

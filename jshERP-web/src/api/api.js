@@ -3,6 +3,8 @@ import { getAction, deleteAction, putAction, postAction, httpAction } from '@/ap
 //首页统计
 const getBuyAndSaleStatistics = (params)=>getAction("/depotHead/getBuyAndSaleStatistics",params);
 const buyOrSalePrice = (params)=>getAction("/depotItem/buyOrSalePrice",params);
+const getUnPaied = (params)=>getAction("/accountHead/getUnPaied",params);
+const getExecution = (params)=>getAction("/depotHead/execution",params);
 //租户管理
 const checkTenant = (params)=>getAction("/tenant/checkIsNameExist",params);
 const addTenant = (params)=>postAction("/tenant/add",params);
@@ -210,7 +212,9 @@ export {
   findStockByDepotAndBarCode,
   getBatchNumberList,
   findFinancialDetailByNumber,
-  getMaterialNames
+  getMaterialNames,
+  getUnPaied,
+  getExecution
 }
 
 

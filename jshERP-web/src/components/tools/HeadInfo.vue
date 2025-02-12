@@ -1,6 +1,6 @@
 <template>
   <div class="head-info" :class="center && 'left'">
-    <p>￥{{ content }}</p>
+    <p>{{ content }}</p>
     <em v-if="bordered"/>
   </div>
 </template>
@@ -14,7 +14,7 @@
         default: ''
       },
       content: {
-        type: Number,
+        type: String,
         default: ''
       },
       bordered: {
