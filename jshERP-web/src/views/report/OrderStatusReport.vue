@@ -158,7 +158,7 @@
         tabKey: "1",
         pageName: 'OrderStatusReport',
         // 默认索引
-        defDataIndex:['rowIndex','organName','designer','paied','unpaied','status'],
+        defDataIndex:['rowIndex','organName','designer','paied','unPaied','totalPrice','status'],
         // 默认列
         defColumns: [
           {
@@ -169,6 +169,7 @@
           },
           { title: '客户', dataIndex: 'organName', width: 150},
           { title: '设计师', dataIndex: 'designer', width: 150},
+          { title: '签约金额', dataIndex: 'totalPrice', width: 150},
           { title: '已收款项', dataIndex: 'paied', width: 100},
           { title: '未收款项', dataIndex: 'unPaied', width: 100},
           { title: '施工状态', dataIndex: 'status', width: 100}
@@ -200,20 +201,8 @@
           }
         });
       },
-      getQueryParams() {
-        let param = Object.assign({}, this.queryParam, this.isorter);
-        param.field = this.getQueryField();
-        param.currentPage = this.ipagination.current;
-        param.pageSize = this.ipagination.pageSize-1;
-        return param;
-      },
       searchQuery() {
         this.loadData(1);
-      },
-      showAccountInOutList(record) {
-        this.$refs.accountInOutList.show(record);
-        this.$refs.accountInOutList.title = "查看账户流水-" + record.name;
-        this.$refs.accountInOutList.disableSubmit = false;
       },
       exportExcel() {
         let list = []

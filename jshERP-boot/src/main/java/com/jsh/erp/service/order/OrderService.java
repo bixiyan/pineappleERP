@@ -22,7 +22,7 @@ public class OrderService {
     @Resource
     private AccountHeadMapperEx accountHeadMapperEx;
 
-    public List<OrderReportVo2> select(String beginTime, String endTime, String designer, Long organId, Long status){
+    public List<OrderReportVo2> select(String beginTime, String endTime, String designer, Long organId, Integer status){
         List<OrderReportVo2> result = new ArrayList<>();
         String dhStatus = null;
         Map<Long,OrderReportVo2> calMap = new HashMap<>();
@@ -50,6 +50,7 @@ public class OrderService {
         for (OrderReportVo2 value : calMap.values()){
             if(status == null || value.executionStatus().equals(status)){
                 result.add(value);
+                value.resetStatus();
             }
         }
         return result;

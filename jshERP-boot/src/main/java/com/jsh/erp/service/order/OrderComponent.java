@@ -29,7 +29,7 @@ public class OrderComponent  implements ICommonQuery {
         String beginTime = StringUtil.getInfo(search, "beginTime");
         String endTime = StringUtil.getInfo(search, "endTime");
         Long organId = StringUtil.parseStrLong(StringUtil.getInfo(search, "organId"));
-        Long status = StringUtil.parseStrLong(StringUtil.getInfo(search, "status"));
+        Integer status = StringUtil.parseInteger(StringUtil.getInfo(search, "status"));
         List<?>  result = orderService.select(beginTime,endTime,designer,organId,status);
         return result;
     }

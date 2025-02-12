@@ -24,24 +24,35 @@ public class OrderReportVo2 extends DepotHead {
     }
 
     public void add(OrderReportVo vo){
+        BigDecimal total = vo.getAhTotal()==null?new BigDecimal(0):vo.getAhTotal();
         if(vo.getAhStatus() == null || "0".equals(vo.getAhStatus())){
-            this.unPaied.add(vo.getAhTotal());
+            this.unPaied.add(total);
         }
         else{
-            this.paied.add(vo.getAhTotal());
+            this.paied.add(total);
         }
     }
 
-    public Long executionStatus(){
+    public Integer executionStatus(){
         if ("1".equals(this.getStatus()))
-            return 2L;
+            return 2;
         else {
             if (paied.compareTo(BigDecimal.valueOf(0L)) == 1){
-                return 1L;
+                return 1;
             }
             else
-                return 0L;
+                return 0;
         }
+    }
+
+    public void resetStatus() {
+        Integer executionStatus = this.executionStatus();
+        if(executionStatus==0)
+            this.setStatus("未施工");
+        if(executionStatus==1)
+            this.setStatus("施工中");
+        if(executionStatus==2)
+            this.setStatus("已施工");
     }
 
 
