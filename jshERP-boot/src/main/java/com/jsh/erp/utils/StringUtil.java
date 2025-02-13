@@ -62,6 +62,11 @@ public class StringUtil {
         return df.format(new Date());
     }
 
+    public static String dateToStr(Date time) {
+        SimpleDateFormat df = new SimpleDateFormat(DEFAULT_FORMAT);
+        return df.format(time);
+    }
+
     public static String getSysDatePast7Days() {
         SimpleDateFormat df = new SimpleDateFormat(DEFAULT_FORMAT);
         Calendar calendar = Calendar.getInstance();

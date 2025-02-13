@@ -21,6 +21,8 @@ public class OrderReportVo2 extends DepotHead {
         this.setOrganName(vo.getOrganName());
         this.setDesigner(vo.getDesigner());
         this.setTotalPrice(vo.getTotalPrice());
+        this.setStatus(vo.getStatus());
+        this.setCreateTime(vo.getCreateTime());
     }
 
     public void add(OrderReportVo vo){

@@ -20,6 +20,7 @@
         <result column="contacts" jdbcType="VARCHAR" property="contacts" />
         <result column="telephone" jdbcType="VARCHAR" property="telephone" />
         <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="CreateTime" jdbcType="VARCHAR" property="createTime" />
     </resultMap>
 
     <resultMap id="ResultWithInfoExMap" type="com.jsh.erp.datasource.vo.DepotHeadVo4InDetail">
@@ -181,24 +182,23 @@
     </select>
 
     <select id="executionInfo" parameterType="com.jsh.erp.datasource.entities.DepotHeadExample" resultMap="ResultMapOrderReport">
-        select ah.status ahStatus,s.supplier OrganName, ah.total_price ahTotal, m.name designer
+        select ah.status ahStatus,s.supplier OrganName, ah.total_price ahTotal, m.name designer,dh.create_time CreateTime
         from jsh_depot_head dh
         left join jsh_account_item ai on dh.id = ai.bill_id and ifnull(ai.delete_flag,'0') !='1'
         left join jsh_account_head ah on ah.id = ai.header_id and ifnull(ah.delete_flag,'0') !='1'
         left join jsh_depot_item di on dh.id = di.header_id and ifnull(di.delete_flag,'0') !='1'
         left join jsh_material m on di.material_id = m.id and ifnull(m.delete_flag,'0') !='1'
-        left join jsh_supplier s on ah.organ_id = s.id and ifnull(s.delete_flag,'0') !='1'
+        left join jsh_supplier s on dh.organ_id = s.id and ifnull(s.delete_flag,'0') !='1'
         where 1=1 and dh.status= 0 AND ifnull(dh.delete_flag, '0') != '1';
     </select>
 
     <select id="orderReport" parameterType="com.jsh.erp.datasource.entities.DepotHeadExample" resultMap="ResultMapOrderReport">
         select dh.*, ah.status ahStatus,s.supplier OrganName, ah.total_price ahTotal, m.name designer
         from jsh_depot_head dh
-        left join jsh_account_item ai on dh.id = ai.bill_id and ifnull(ai.delete_flag,'0') !='1'
-        left join jsh_account_head ah on ah.id = ai.header_id and ifnull(ah.delete_flag,'0') !='1'
+        left join jsh_account_head ah on dh.organ_id=ah.organ_id  and ifnull(ah.delete_flag,'0') !='1'
         left join jsh_depot_item di on dh.id = di.header_id and ifnull(di.delete_flag,'0') !='1'
         left join jsh_material m on di.material_id = m.id and ifnull(m.delete_flag,'0') !='1'
-        left join jsh_supplier s on ah.organ_id = s.id and ifnull(s.delete_flag,'0') !='1'
+        left join jsh_supplier s on dh.organ_id = s.id and ifnull(s.delete_flag,'0') !='1'
         left join jsh_user u on ah.creator = u.id and ifnull(u.delete_flag,'0') !='1'
         left join jsh_person p on ah.hands_person_id = p.id and ifnull(p.delete_flag,'0') !='1'
         left join jsh_account a on ah.account_id = a.id and ifnull(a.delete_flag,'0') !='1'

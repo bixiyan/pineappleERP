@@ -9,7 +9,7 @@
             <a-row :gutter="24">
               <a-col :md="4" :sm="24">
                 <a-form-item label="施工状态" :labelCol="labelCol" :wrapperCol="wrapperCol">
-                  <a-select placeholder="请选择施工状态" v-model="queryParam.status">
+                  <a-select placeholder="请选择施工状态" allow-clear v-model="queryParam.status">
                     <a-select-option value="0">未施工</a-select-option>
                     <a-select-option value="1">施工中</a-select-option>
                     <a-select-option value="2">已施工</a-select-option>
@@ -18,7 +18,7 @@
               </a-col>
               <a-col :md="4" :sm="24">
                 <a-form-item label="设计师" :labelCol="labelCol" :wrapperCol="wrapperCol">
-                  <a-select placeholder="请选择设计师" showSearch optionFilterProp="children" v-model="queryParam.designer">
+                  <a-select placeholder="请选择设计师" showSearch allow-clear optionFilterProp="children" v-model="queryParam.designer">
                     <a-select-option v-for="(item,index) in designerList" :key="index" :value="item">
                       {{ item }}
                     </a-select-option>

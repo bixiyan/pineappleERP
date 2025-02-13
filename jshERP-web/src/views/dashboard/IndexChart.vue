@@ -2,21 +2,21 @@
   <div class="page-header-index-wide">
     <a-row :gutter="24">
       <a-col v-for="item of unPaied" :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="待收款" :company="item.organ" data-step="1" data-title="test">
+        <chart-card :loading="loading" title="待收款" :company="item.organ" :time="item.billTime" data-title="test">
           <head-info :content="item.total"></head-info>
         </chart-card>
       </a-col>
     </a-row>
     <a-row :gutter="24">
       <a-col v-for="item of inExecution" :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="施工中" :company="item.designer" data-step="1" data-title="test">
+        <chart-card :loading="loading" title="施工中" :company="item.designer" :time="item.createTime" data-step="1" data-title="test">
           <head-info :content="item.organ"></head-info>
         </chart-card>
       </a-col>
     </a-row>
     <a-row :gutter="24">
       <a-col v-for="item of unExecution" :sm="24" :md="12" :xl="4" :style="{ paddingRight: '0px',marginBottom: '12px' }">
-        <chart-card :loading="loading" title="未施工" :company="item.designer" data-step="1" data-title="test">
+        <chart-card :loading="loading" title="未施工" :company="item.designer" :time="item.createTime" data-step="1" data-title="test">
           <head-info :content="item.organ"></head-info>
         </chart-card>
       </a-col>

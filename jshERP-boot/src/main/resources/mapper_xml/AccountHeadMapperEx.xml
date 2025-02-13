@@ -12,24 +12,25 @@
     <resultMap extends="com.jsh.erp.datasource.mappers.AccountHeadMapper.BaseResultMap" id="ResultMapUnpaied" type="com.jsh.erp.datasource.vo.AccountHeadUnPaiedVo">
         <result column="OrganName" jdbcType="VARCHAR" property="organ" />
         <result column="Total" jdbcType="DECIMAL" property="total" />
+        <result column="BillTime" jdbcType="DECIMAL" property="billTime" />
     </resultMap>
 
     <select id="getUnPaied" parameterType="com.jsh.erp.datasource.entities.AccountHeadExample" resultMap="ResultMapUnpaied">
-        select s.supplier OrganName, ah.total_price Total
+        select s.supplier OrganName, ah.total_price Total, ah.bill_time BillTime
         from jsh_account_head ah
         left join jsh_supplier s on ah.organ_id=s.id and ifnull(s.delete_Flag,'0') !='1'
         where 1=1 and ah.status = 0
         <if test="bill_time != null">
             and ah.bill_time &lt;= #{bill_time}
         </if>
-        and ifnull(ah.delete_flag,'0') !='1'
+        and ifnull(ah.delete_flag,'0') !='1' order by ah.bill_time asc
     </select>
 
     <select id="selectByConditionAccountHead" parameterType="com.jsh.erp.datasource.entities.AccountHeadExample" resultMap="ResultMapEx">
         select distinct ah.*, s.supplier OrganName, p.Name HandsPersonName, u.username userName, a.Name AccountName, m.Name designer
         from jsh_account_head ah
         left join jsh_account_item ai on ah.id=ai.header_id and ifnull(ai.delete_flag,'0') !='1'
-        left join jsh_depot_head dh on dh.id=ai.bill_id and ifnull(dh.delete_flag,'0') !='1'
+        left join jsh_depot_head dh on dh.organ_id=ah.organ_id and ifnull(dh.delete_flag,'0') !='1'
         left join jsh_depot_item di on dh.id = di.header_id and ifnull(di.delete_flag,'0') !='1'
         left join jsh_material m on di.material_id = m.id and ifnull(m.delete_flag,'0') !='1'
         left join jsh_supplier s on ah.organ_id=s.id and ifnull(s.delete_Flag,'0') !='1'

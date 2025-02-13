@@ -107,9 +107,9 @@ public class DepotHeadService {
         }
         for(OrderReportVo2 value : calMap.values()){
             if(value.executionStatus() == 0){
-                executionInfoVo.addUnExecution(new ExecutionInfoVo.ExecutionInfoVoItem(value.getDesigner(),value.getOrganName()));
-            } else if (value.executionStatus() ==0) {
-                executionInfoVo.addInExecution(new ExecutionInfoVo.ExecutionInfoVoItem(value.getDesigner(),value.getOrganName()));
+                executionInfoVo.addUnExecution(new ExecutionInfoVo.ExecutionInfoVoItem(value.getDesigner(),value.getOrganName(),value.getCreateTime()));
+            } else if (value.executionStatus() ==1) {
+                executionInfoVo.addInExecution(new ExecutionInfoVo.ExecutionInfoVoItem(value.getDesigner(),value.getOrganName(),value.getCreateTime()));
             }
         }
         return executionInfoVo;
