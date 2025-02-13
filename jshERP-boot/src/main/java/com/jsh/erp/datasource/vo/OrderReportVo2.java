@@ -23,15 +23,16 @@ public class OrderReportVo2 extends DepotHead {
         this.setTotalPrice(vo.getTotalPrice());
         this.setStatus(vo.getStatus());
         this.setCreateTime(vo.getCreateTime());
+        this.add(vo);
     }
 
     public void add(OrderReportVo vo){
         BigDecimal total = vo.getAhTotal()==null?new BigDecimal(0):vo.getAhTotal();
         if(vo.getAhStatus() == null || "0".equals(vo.getAhStatus())){
-            this.unPaied.add(total);
+            this.unPaied = this.unPaied.add(total);
         }
         else{
-            this.paied.add(total);
+            this.paied = this.paied.add(total);
         }
     }
 
