@@ -91,6 +91,30 @@ public class DepotHeadService {
     @Resource
     private LogService logService;
 
+    public ExecutionInfoVo getExecutionInfo(){
+        ExecutionInfoVo executionInfoVo = new ExecutionInfoVo();
+        List<OrderReportVo> data = depotHeadMapperEx.executionInfo();
+        Map<Long,OrderReportVo2> calMap = new HashMap<>();
+        for(OrderReportVo vo : data){
+            OrderReportVo2 vo2 =  calMap.get(vo.getOrganId());
+            if (vo2 == null) {
+                vo2 = new OrderReportVo2(vo);
+                calMap.put(vo.getOrganId(),vo2);
+            }
+            else {
+                vo2.add(vo);
+            }
+        }
+        for(OrderReportVo2 value : calMap.values()){
+            if(value.executionStatus() == 0){
+                executionInfoVo.addUnExecution(new ExecutionInfoVo.ExecutionInfoVoItem(value.getDesigner(),value.getOrganName()));
+            } else if (value.executionStatus() ==0) {
+                executionInfoVo.addInExecution(new ExecutionInfoVo.ExecutionInfoVoItem(value.getDesigner(),value.getOrganName()));
+            }
+        }
+        return executionInfoVo;
+    }
+
     public DepotHead getDepotHead(long id)throws Exception {
         DepotHead result=null;
         try{

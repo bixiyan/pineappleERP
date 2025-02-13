@@ -38,6 +38,8 @@ public interface DepotHeadMapperEx {
             @Param("offset") Integer offset,
             @Param("rows") Integer rows);
 
+    List<OrderReportVo> executionInfo();
+
     List<OrderReportVo> orderReport(
         @Param("status") String status,
         @Param("beginTime") String beginTime,

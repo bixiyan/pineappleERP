@@ -6,10 +6,12 @@ import com.jsh.erp.constants.BusinessConstants;
 import com.jsh.erp.constants.ExceptionConstants;
 import com.jsh.erp.datasource.entities.DepotHead;
 import com.jsh.erp.datasource.entities.DepotHeadVo4Body;
+import com.jsh.erp.datasource.vo.AccountHeadUnPaiedVo;
 import com.jsh.erp.datasource.vo.DepotHeadVo4InDetail;
 import com.jsh.erp.datasource.vo.DepotHeadVo4InOutMCount;
 import com.jsh.erp.datasource.vo.DepotHeadVo4List;
 import com.jsh.erp.datasource.vo.DepotHeadVo4StatementAccount;
+import com.jsh.erp.datasource.vo.ExecutionInfoVo;
 import com.jsh.erp.service.depot.DepotService;
 import com.jsh.erp.service.depotHead.DepotHeadService;
 import com.jsh.erp.service.systemConfig.SystemConfigService;
@@ -52,6 +54,22 @@ public class DepotHeadController {
 
     @Resource
     private UserService userService;
+
+    @GetMapping(value = "/execution")
+    @ApiOperation(value = "获取施工中和未施工的状态信息")
+    public BaseResponseInfo execution(HttpServletRequest request) throws Exception{
+        BaseResponseInfo result = new BaseResponseInfo();
+        try {
+            ExecutionInfoVo res = depotHeadService.getExecutionInfo();
+            result.data = res;
+            result.code = 200;
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            result.code = 500;
+            result.data = "获取数据失败";
+        }
+        return result;
+    }
 
     /**
      * 批量设置状态-审核或者反审核
