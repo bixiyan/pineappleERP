@@ -96,11 +96,11 @@ public class SupplierService {
         return list;
     }
 
-    public List<Supplier> select(String supplier, String type, String phonenum, String telephone, int offset, int rows) throws Exception{
+    public List<Supplier> select(String supplier, String type, String phonenum, String taxnum, String telephone,Integer organId, int offset, int rows) throws Exception{
         List<Supplier> resList = new ArrayList<Supplier>();
         try{
             String [] creatorArray = depotHeadService.getCreatorArray();
-            List<Supplier> list = supplierMapperEx.selectByConditionSupplier(supplier, type, phonenum, telephone, creatorArray, offset, rows);
+            List<Supplier> list = supplierMapperEx.selectByConditionSupplier(supplier, type, phonenum,taxnum, telephone, creatorArray,organId, offset, rows);
             for(Supplier s : list) {
                 Integer supplierId = s.getId().intValue();
                 String beginTime = Tools.getYearBegin();

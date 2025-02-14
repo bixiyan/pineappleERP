@@ -66,8 +66,8 @@
               </a-form-item>
             </a-col>
             <a-col :span="24/2">
-              <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="客户来源分类">
-                <a-select placeholder="请选择客户来源分类" v-decorator.trim="[ 'taxNum' ]" >
+              <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="客户来源">
+                <a-select placeholder="请选择客户来源分类" v-decorator.trim="[ 'taxNum' , validatorRules.taxNum]" >
                   <a-select-option value="0">欧德系统转介</a-select-option>
                   <a-select-option value="1">总监分发</a-select-option>
                   <a-select-option value="2">网络</a-select-option>
@@ -142,6 +142,11 @@
               { min: 2, max: 60, message: '长度在 2 到 60 个字符', trigger: 'blur' },
               { validator: this.validateSupplierName}
             ]
+          },
+          taxNum:{
+            rules: [
+              { required: true , message: '请选择客户来源!'}
+            ]
           }
         },
       }
@@ -201,6 +206,9 @@
       },
       handleCancel () {
         this.close()
+      },
+      validateTaxNum(value){
+        alert(value)
       },
       validateSupplierName(rule, value, callback){
         let params = {

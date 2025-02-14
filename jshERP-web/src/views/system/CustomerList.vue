@@ -15,7 +15,7 @@
               </a-col>
               <a-col :md="6" :sm="24">
                 <a-form-item label="客户来源" :labelCol="labelCol" :wrapperCol="wrapperCol">
-                  <a-select placeholder="请选择客户来源分类" v-model="queryParam.taxnum" >
+                  <a-select placeholder="请选择客户来源分类" allow-clear v-model="queryParam.taxnum" >
                     <a-select-option value="0">欧德系统转介</a-select-option>
                     <a-select-option value="1">总监分发</a-select-option>
                     <a-select-option value="2">网络</a-select-option>
@@ -25,9 +25,9 @@
               </a-col>
               <a-col :md="6" :sm="24">
                 <a-form-item label="是否签约" :labelCol="labelCol" :wrapperCol="wrapperCol">
-                  <a-select placeholder="请选择是否签约" v-model="queryParam.taxnum" >
-                    <a-select-option value="0">是</a-select-option>
-                    <a-select-option value="1">否</a-select-option>
+                  <a-select placeholder="请选择是否签约" allow-clear v-model="queryParam.deptStatus" >
+                    <a-select-option value="1">是</a-select-option>
+                    <a-select-option value="-1">否</a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
@@ -132,7 +132,8 @@
           taxnum:'',
           signornot:'',
           telephone:'',
-          phonenum:''
+          phonenum:'',
+          deptStatus:''
         },
         ipagination:{
           pageSizeOptions: ['10', '20', '30', '100', '200']
@@ -161,7 +162,16 @@
           { title: '手机号码', dataIndex: 'telephone',width:100,align:"left"},
           { title: '联系电话', dataIndex: 'phoneNum',width:100,align:"left"},
           { title: '电子邮箱', dataIndex: 'email',width:150,align:"left"},
-          { title: '客户来源', dataIndex: 'taxNum',width:150,align:"left"},
+          { title: '客户来源', dataIndex: 'taxNum',width:150,align:"left",customRender:function(text){
+            if(text=='0')
+              return '欧德系统转介';
+            else if (text=='1')
+              return '总监分发';
+            else if (text=='2')
+              return '网络';
+            else
+              return '门市客'
+          }},
           { title: '期初应收',dataIndex: 'beginNeedGet',width:80,align:"left"},
           { title: '期末应收',dataIndex: 'allNeedGet',width:80,align:"left"},
           { title: '税率(%)', dataIndex: 'taxRate',width:80,align:"left"},

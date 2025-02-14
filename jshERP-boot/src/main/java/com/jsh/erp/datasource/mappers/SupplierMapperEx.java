@@ -13,8 +13,10 @@ public interface SupplierMapperEx {
             @Param("supplier") String supplier,
             @Param("type") String type,
             @Param("phonenum") String phonenum,
+            @Param("taxnum") String taxnum,
             @Param("telephone") String telephone,
             @Param("creatorArray") String[] creatorArray,
+            @Param("organ_id") Integer organ_id,
             @Param("offset") Integer offset,
             @Param("rows") Integer rows);
 
