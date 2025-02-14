@@ -11,7 +11,7 @@
       <a-col>
         <!-- 操作按钮 -->
         <div v-if="actionButton" class="action-button">
-          <a-button type="primary" icon="plus" @click="handleClickAdd" :disabled="disabled">插入行</a-button>
+          <!--<a-button type="primary" icon="plus" @click="handleClickAdd" :disabled="disabled">插入行</a-button>-->
           <span class="gap"></span>
           <template v-if="selectedRowIds.length>0">
             <a-popconfirm
