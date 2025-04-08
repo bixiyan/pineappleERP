@@ -139,7 +139,12 @@ export const JeecgListMixin = {
       var param = Object.assign(sqp, searchObj, this.isorter ,this.filters);
       param.field = this.getQueryField();
       param.currentPage = this.ipagination.current;
-      param.pageSize = this.ipagination.pageSize;
+      console.log('this.hasTotalColumn()', this.hasTotalColumn())
+      if (this.hasTotalColumn()){
+        param.pageSize = this.ipagination.pageSize - 1;
+      }
+      else
+        param.pageSize = this.ipagination.pageSize;
       return filterObj(param);
     },
     getQueryField() {
@@ -502,17 +507,38 @@ export const JeecgListMixin = {
         }
       }
     },
+    hasTotalColumn(){
+      let parseCols = this.getTotalColumns()
+      console.log('parseCols', parseCols)
+      console.log('this.columns', this.columns)
+      let hasTotal = false
+      this.columns.forEach(column => {
+        let { key, dataIndex } = column
+        console.log('dataIndex', dataIndex)
+        console.log('indexOf', parseCols.indexOf(dataIndex+','))
+        if(parseCols.indexOf(dataIndex+',')>-1) {
+          hasTotal = true
+          return
+        }
+      })
+      return hasTotal
+    },
+    getTotalColumns() {
+      // 返回需要合计的列，记住最后的逗号不要删除
+      return 'initialStock,currentStock,currentStockPrice,currentWeight,initialAmount,thisMonthAmount,currentAmount,inSum,inSumPrice,' +
+          'inOutSumPrice,outSum,outSumPrice,outInSumPrice,operNumber,allPrice,numSum,priceSum,prevSum,thisSum,thisAllPrice,changeAmount,' +
+          'allPrice,taxMoney,currentNumber,lowCritical,highCritical,preNeed,debtMoney,backMoney,allNeed,' +
+          'needDebt,realNeedDebt,finishDebt,debt,totalPrice,totalTaxLastMoney,unPaied,paied,'
+    },
     /** 表格增加合计行 */
     tableAddTotalRow(columns, dataSource) {
       if(dataSource.length>0) {
         //分页条数为11、21、31等的时候增加合计行
         let numKey = 'rowIndex'
         let totalRow = { [numKey]: '合计' }
-        //需要合计的列，记住最后的逗号不要删除
-        let parseCols = 'initialStock,currentStock,currentStockPrice,currentWeight,initialAmount,thisMonthAmount,currentAmount,inSum,inSumPrice,' +
-          'inOutSumPrice,outSum,outSumPrice,outInSumPrice,operNumber,allPrice,numSum,priceSum,prevSum,thisSum,thisAllPrice,changeAmount,' +
-          'allPrice,taxMoney,currentNumber,lowCritical,highCritical,preNeed,debtMoney,backMoney,allNeed,' +
-          'needDebt,realNeedDebt,finishDebt,debt,totalPrice,totalTaxLastMoney,unPaied,paied,'
+        let hasTotalRow = false
+        //
+        let parseCols = this.getTotalColumns()
         columns.forEach(column => {
           let { key, dataIndex } = column
           if (![key, dataIndex].includes(numKey)) {
@@ -532,15 +558,20 @@ export const JeecgListMixin = {
             })
             if (total !== '-') {
               total = total.toFixed(2)
+              hasTotalRow = true
             }
             totalRow[dataIndex] = total
           }
         })
-        dataSource.push(totalRow)
-        //总数要增加合计的行数，每页都有一行合计，所以总数要加上
-        //let size = Math.ceil(this.ipagination.total/(this.ipagination.pageSize-1))
-        //bixy 认为合计行只算一行加在总数上
-        this.ipagination.total = this.ipagination.total + 1
+        if (hasTotalRow) {
+          console.log('ipagination', this.ipagination)
+          console.log('dataSource', dataSource)
+          //总数要增加合计的行数，每页都有一行合计，所以总数要加上
+          //let size = Math.ceil(cc.total/(this.ipagination.pageSize-1))
+          //bixy 认为合计行只算一行加在总数上
+          dataSource.push(totalRow)
+        }
+        
       }
     },
     paginationChange(page, pageSize) {
