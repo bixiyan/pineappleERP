@@ -44,7 +44,7 @@ public class OrderService {
                 calMap.put(vo.getOrganId(),vo2);
             }
             else {
-                vo2.add(vo);
+                vo2.addTotal(vo);
             }
         }
         for (OrderReportVo2 value : calMap.values()){
@@ -52,7 +52,11 @@ public class OrderService {
                 result.add(value);
                 value.resetStatus();
             }
+            System.out.println(beginTime);
+            System.out.println(endTime);
+            value.setPaiedUnPaid(accountHeadMapperEx.getPaiedByOrganId(value.getOrganId(),beginTime,endTime),accountHeadMapperEx.getUnPaiedByOrganId(value.getOrganId(),beginTime,endTime));
         }
         return result;
     }
+
 }

@@ -23,17 +23,24 @@ public class OrderReportVo2 extends DepotHead {
         this.setTotalPrice(vo.getTotalPrice());
         this.setStatus(vo.getStatus());
         this.setCreateTime(vo.getCreateTime());
-        this.add(vo);
     }
 
-    public void add(OrderReportVo vo){
-        BigDecimal total = vo.getAhTotal()==null?new BigDecimal(0):vo.getAhTotal();
-        if(vo.getAhStatus() == null || "0".equals(vo.getAhStatus())){
-            this.unPaied = this.unPaied.add(total);
-        }
-        else{
-            this.paied = this.paied.add(total);
-        }
+    public void addTotal(OrderReportVo vo){
+        BigDecimal total = vo.getTotalPrice();
+        if (total == null)
+            total = new BigDecimal(0);
+        if (this.getTotalPrice() != null)
+            this.setTotalPrice(this.getTotalPrice().add(total));
+        else
+            this.setTotalPrice(total);
+    }
+
+    public void setPaiedUnPaid(BigDecimal paied,BigDecimal unPaied){
+        System.out.println("orgid======="+ this.getOrganId());
+        System.out.println(paied);
+        System.out.println(unPaied);
+        this.paied = paied;
+        this.unPaied = unPaied;
     }
 
     public Integer executionStatus(){

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.jsh.erp.constants.BusinessConstants;
 import com.jsh.erp.constants.ExceptionConstants;
 import com.jsh.erp.datasource.entities.*;
+import com.jsh.erp.datasource.mappers.AccountHeadMapperEx;
 import com.jsh.erp.datasource.mappers.DepotHeadMapper;
 import com.jsh.erp.datasource.mappers.DepotHeadMapperEx;
 import com.jsh.erp.datasource.mappers.DepotItemMapperEx;
@@ -89,6 +90,8 @@ public class DepotHeadService {
     @Resource
     DepotItemMapperEx depotItemMapperEx;
     @Resource
+    private AccountHeadMapperEx accountHeadMapperEx;
+    @Resource
     private LogService logService;
 
     public ExecutionInfoVo getExecutionInfo(){
@@ -102,8 +105,12 @@ public class DepotHeadService {
                 calMap.put(vo.getOrganId(),vo2);
             }
             else {
-                vo2.add(vo);
+                vo2.addTotal(vo);
             }
+        }
+        // 这里有个逻辑问题，就是account表里面没有签约信息，实际上关联得是客户信息，那么如果存在历史客户收款得话，也会变成施工中
+        for (OrderReportVo2 value : calMap.values()){
+            value.setPaiedUnPaid(accountHeadMapperEx.getPaiedByOrganId(value.getOrganId(),null,null),new BigDecimal(0));
         }
         for(OrderReportVo2 value : calMap.values()){
             if(value.executionStatus() == 0){

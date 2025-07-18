@@ -65,4 +65,14 @@ public interface AccountHeadMapperEx {
 
     BigDecimal getFinancialAllPriceByOrganId(
             @Param("organId") Long organId);
+
+    BigDecimal getUnPaiedByOrganId(
+        @Param("organId") Long organId,
+        @Param("beginTime") String beginTime,
+        @Param("endTime") String endTime);
+
+    BigDecimal getPaiedByOrganId(
+        @Param("organId") Long organId,
+        @Param("beginTime") String beginTime,
+        @Param("endTime") String endTime);
 }
