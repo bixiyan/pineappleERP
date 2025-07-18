@@ -97,7 +97,7 @@ public class SupplierService {
     }
 
     public List<Supplier> select(String supplier, String type, String phonenum, String taxnum, String telephone,Integer organId, int offset, int rows) throws Exception{
-        List<Supplier> resList = new ArrayList<Supplier>();
+        Map<Long,Supplier> resList = new HashMap<>();
         try{
             String [] creatorArray = depotHeadService.getCreatorArray();
             List<Supplier> list = supplierMapperEx.selectByConditionSupplier(supplier, type, phonenum,taxnum, telephone, creatorArray,organId, offset, rows);
@@ -144,12 +144,16 @@ public class SupplierService {
                 } else if(("供应商").equals(s.getType())) {
                     s.setAllNeedPay(sum);
                 }
-                resList.add(s);
+                Supplier resultSupplier = resList.get(s.getId());
+                if(resultSupplier == null)
+                    resList.put(s.getId(),s);
+                else
+                    resultSupplier.add(s);
             }
         }catch(Exception e){
             JshException.readFail(logger, e);
         }
-        return resList;
+        return new ArrayList<>(resList.values());
     }
 
     public Long countSupplier(String supplier, String type, String phonenum, String telephone) throws Exception{

@@ -53,6 +53,14 @@ public class Supplier {
 
     private String deleteFlag;
 
+    public void add(Supplier s) {
+        if(("客户").equals(s.getType())) {
+            this.allNeedGet.add(s.getAllNeedGet());
+        } else if(("供应商").equals(s.getType())) {
+            this.allNeedPay.add(s.getAllNeedPay());
+        }
+    }
+
     public Long getId() {
         return id;
     }
