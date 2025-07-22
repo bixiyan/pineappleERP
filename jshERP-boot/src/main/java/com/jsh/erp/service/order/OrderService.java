@@ -52,8 +52,6 @@ public class OrderService {
                 result.add(value);
                 value.resetStatus();
             }
-            System.out.println(beginTime);
-            System.out.println(endTime);
             value.setPaiedUnPaid(accountHeadMapperEx.getPaiedByOrganId(value.getOrganId(),beginTime,endTime),accountHeadMapperEx.getUnPaiedByOrganId(value.getOrganId(),beginTime,endTime));
         }
         return result;

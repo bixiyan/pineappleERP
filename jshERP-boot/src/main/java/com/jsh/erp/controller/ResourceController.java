@@ -62,8 +62,12 @@ public class ResourceController {
             parameterMap.put(Constants.OFFSET, offset);
         }
         List<?> list = configResourceManager.select(apiName, parameterMap);
+        // 这里临时增加了点逻辑，处理签约统计里面不能显示总记录数的问题
         if (list != null) {
-            objectMap.put("total", configResourceManager.counts(apiName, parameterMap));
+            Long total = configResourceManager.counts(apiName, parameterMap);
+            if(total == null || total == 0L)
+                total = new Long(list.size()+1);
+            objectMap.put("total", total);
             objectMap.put("rows", list);
             return returnJson(objectMap, ErpInfo.OK.name, ErpInfo.OK.code);
         } else {

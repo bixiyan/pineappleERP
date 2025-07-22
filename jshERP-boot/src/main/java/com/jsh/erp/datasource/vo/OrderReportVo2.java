@@ -36,9 +36,6 @@ public class OrderReportVo2 extends DepotHead {
     }
 
     public void setPaiedUnPaid(BigDecimal paied,BigDecimal unPaied){
-        System.out.println("orgid======="+ this.getOrganId());
-        System.out.println(paied);
-        System.out.println(unPaied);
         this.paied = paied;
         this.unPaied = unPaied;
     }

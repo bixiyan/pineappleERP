@@ -19,7 +19,7 @@
         select s.supplier OrganName, ah.total_price Total, ah.bill_time BillTime
         from jsh_account_head ah
         left join jsh_supplier s on ah.organ_id=s.id and ifnull(s.delete_Flag,'0') !='1'
-        where 1=1 and ah.status = 0
+        where 1=1 and ah.status = 0 and ah.type="收入"
         <if test="bill_time != null">
             and ah.bill_time &lt;= #{bill_time}
         </if>
