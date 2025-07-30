@@ -5,7 +5,8 @@
         <result column="OrganId" jdbcType="BIGINT" property="organ" />
     </resultMap>
     <select id="selectByConditionSupplier" parameterType="com.jsh.erp.datasource.entities.SupplierExample" resultMap="com.jsh.erp.datasource.mappers.SupplierMapper.BaseResultMap">
-        select s.*, dh.organ_id OrganId
+        select * from jsh_supplier
+        where id in (select distinct s.id
         FROM jsh_supplier s
         left JOIN jsh_depot_head dh on s.id = dh.organ_id
         where 1=1
@@ -40,40 +41,49 @@
             </foreach>
             )
         </if>
-        and ifnull(s.delete_flag,'0') !='1'
-        order by s.sort asc, s.id desc
+        and ifnull(s.delete_flag,'0') !='1')
         <if test="offset != null and rows != null">
             limit #{offset},#{rows}
         </if>
     </select>
     <select id="countsBySupplier" resultType="java.lang.Long">
         SELECT
-        COUNT(id)
-        FROM jsh_supplier
+        COUNT(distinct s.id)
+        FROM jsh_supplier s
+        left JOIN jsh_depot_head dh on s.id = dh.organ_id
         WHERE 1=1
+        <if test="organ_id != null and organ_id != -1">
+            and dh.organ_id is not NULL
+        </if>
+        <if test="organ_id != null and organ_id == -1">
+            and dh.organ_id is NULL
+        </if>
         <if test="supplier != null and supplier !=''">
             <bind name="bindSupplier" value="'%'+supplier+'%'"/>
-            and supplier like #{bindSupplier}
+            and s.supplier like #{bindSupplier}
         </if>
         <if test="type != null and type !=''">
-            and type=#{type}
+            and s.type=#{type}
+        </if>
+        <if test="taxnum != null and taxnum !=''">
+            and s.tax_num=#{taxnum}
         </if>
         <if test="phonenum != null and phonenum !=''">
             <bind name="bindPhoneNum" value="'%'+phonenum+'%'"/>
-            and phone_num like #{bindPhoneNum}
+            and s.phone_num like #{bindPhoneNum}
         </if>
         <if test="telephone != null and telephone !=''">
             <bind name="bindTelephone" value="'%'+telephone+'%'"/>
-            and telephone like #{bindTelephone}
+            and s.telephone like #{bindTelephone}
         </if>
         <if test="creatorArray != null">
-            and creator in (
+            and s.creator in (
             <foreach collection="creatorArray" item="creator" separator=",">
                 #{creator}
             </foreach>
             )
         </if>
-        and ifnull(delete_flag,'0') !='1'
+        and ifnull(s.delete_flag,'0') !='1'
     </select>
 
     <select id="findByAll" parameterType="com.jsh.erp.datasource.entities.SupplierExample" resultMap="com.jsh.erp.datasource.mappers.SupplierMapper.BaseResultMap">
@@ -109,6 +119,15 @@
         </foreach>
         )
     </update>
+
+    <select id="getSupplierByIds"  resultMap="com.jsh.erp.datasource.mappers.SupplierMapper.BaseResultMap">
+        select * from jsh_supplier
+        where id in (
+        <foreach collection="ids" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </select>
 
     <select id="getSupplierByNameAndType" resultType="com.jsh.erp.datasource.entities.Supplier">
         select *

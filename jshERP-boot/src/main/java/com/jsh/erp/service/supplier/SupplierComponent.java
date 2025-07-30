@@ -49,7 +49,9 @@ public class SupplierComponent implements ICommonQuery {
         String type = StringUtil.getInfo(search, "type");
         String phonenum = StringUtil.getInfo(search, "phonenum");
         String telephone = StringUtil.getInfo(search, "telephone");
-        return supplierService.countSupplier(supplier, type, phonenum, telephone);
+        String taxNum = StringUtil.getInfo(search,"taxnum");
+        Integer organId = StringUtil.parseInteger(StringUtil.getInfo(search,"deptStatus"));
+        return supplierService.countSupplier(supplier, type, phonenum, telephone,taxNum,organId);
     }
 
     @Override

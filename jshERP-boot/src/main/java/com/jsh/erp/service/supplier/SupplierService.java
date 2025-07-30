@@ -101,6 +101,12 @@ public class SupplierService {
         try{
             String [] creatorArray = depotHeadService.getCreatorArray();
             List<Supplier> list = supplierMapperEx.selectByConditionSupplier(supplier, type, phonenum,taxnum, telephone, creatorArray,organId, offset, rows);
+//            System.out.println(list.size());
+//            Set<String> ids = new HashSet<>();
+//            for(Supplier s : list){
+//                ids.add(String.valueOf(s.getId()));
+//            }
+//            list = supplierMapperEx.getSupplierByIds(ids.stream().toArray(String[]::new));
             for(Supplier s : list) {
                 Integer supplierId = s.getId().intValue();
                 String beginTime = Tools.getYearBegin();
@@ -145,6 +151,7 @@ public class SupplierService {
                     s.setAllNeedPay(sum);
                 }
                 Supplier resultSupplier = resList.get(s.getId());
+                System.out.println(s.getId());
                 if(resultSupplier == null)
                     resList.put(s.getId(),s);
                 else
@@ -156,11 +163,11 @@ public class SupplierService {
         return new ArrayList<>(resList.values());
     }
 
-    public Long countSupplier(String supplier, String type, String phonenum, String telephone) throws Exception{
+    public Long countSupplier(String supplier, String type, String phonenum, String telephone, String taxnum,Integer organId) throws Exception{
         Long result=null;
         try{
             String [] creatorArray = depotHeadService.getCreatorArray();
-            result=supplierMapperEx.countsBySupplier(supplier, type, phonenum, telephone, creatorArray);
+            result=supplierMapperEx.countsBySupplier(supplier, type, phonenum, telephone, creatorArray,organId,taxnum);
         }catch(Exception e){
             JshException.readFail(logger, e);
         }
