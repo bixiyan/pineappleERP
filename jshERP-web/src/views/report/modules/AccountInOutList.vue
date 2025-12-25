@@ -167,7 +167,7 @@
         param.accountId = this.currentAccountId
         param.initialAmount = this.currentInitialAmount
         param.currentPage = this.ipagination.current;
-        param.pageSize = this.ipagination.pageSize;
+        param.pageSize = this.ipagination.pageSize-1;
         return param;
       },
       show(record) {
